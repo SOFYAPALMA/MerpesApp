@@ -1,0 +1,80 @@
+<div class="auth-container">
+  <div
+    class="row auth-main justify-content-center align-items-center"
+    style="min-height: 100vh"
+  >
+  <div class="col-sm-6 col-md-4">
+          <!-- Card Container -->
+          <mat-card class="auth-card">
+            <div class="auth-wrapper">
+              <h2 class="welcome-msg text-center">Registro de Productos</h2>
+              <h4 class="login-title text-center">Digite los campos del nuevo producto</h4>
+              
+              <!-- Formulario -->
+              <form class="validate-form" [formGroup]="authForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                  <div class="col-12 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Nombre de Producto</mat-label>
+                      <input matInput formControlName="nombre" />
+                      <mat-icon class="material-icons-outlined p-3" matSuffix>box</mat-icon>
+                      <mat-error *ngIf="f['nombre']?.hasError('required')">campo requerido</mat-error>
+                      <mat-error *ngIf="f['nombre']?.hasError('nombre')">campo no válido</mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-12 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Descripcion Producto</mat-label>
+                      <input matInput formControlName="descripcion" />
+                      <mat-icon class="material-icons-outlined p-3" matSuffix>box</mat-icon>
+                      <mat-error *ngIf="f['descripcion']?.hasError('required')">campo requerido</mat-error>
+                      <mat-error *ngIf="f['descripcion']?.hasError('descripcion')">campo no válido</mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-12 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Precio Producto</mat-label>
+                      <input matInput formControlName="precio" />
+                      <mat-icon class="material-icons-outlined p-3" matSuffix>box</mat-icon>
+                      <mat-error *ngIf="f['precio']?.hasError('required')">campo requerido</mat-error>
+                      <mat-error *ngIf="f['precio']?.hasError('precio')">campo no válido</mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-12 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Categoria Producto</mat-label>
+                      <input matInput formControlName="categoria" />
+                      <mat-icon class="material-icons-outlined p-3" matSuffix>box</mat-icon>
+                      <mat-error *ngIf="f['categoria']?.hasError('required')">campo requerido</mat-error>
+                      <mat-error *ngIf="f['categoria']?.hasError('categoria')">campo no válido</mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-12 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Cantidad</mat-label>
+                      <input matInput formControlName="cantidad" />
+                      <mat-icon class="material-icons-outlined p-3" matSuffix>box</mat-icon>
+                      <mat-error *ngIf="f['cantidad']?.hasError('required')">campo requerido</mat-error>
+                      <mat-error *ngIf="f['cantidad']?.hasError('cantidad')">campo no válido</mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+    
+                <!-- Mostrar mensaje de error -->
+                <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{ error }}</div>
+    
+                <div class="container-auth-form-btn">
+                  <div style="text-align:center">
+                    <button mat-raised-button color="primary" [class.auth-spinner]="loading" [disabled]="loading"
+                            class="auth-form-btn" type="submit">Guardar</button>
+                  </div>
+                </div> 
+              </form>
+            </div>  
+          </mat-card>
+        </div>
+      </div>
+
+    

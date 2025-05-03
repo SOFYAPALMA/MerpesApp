@@ -10,5 +10,4 @@ export const appConfig: ApplicationConfig = {
   provideAnimationsAsync(),
   importProvidersFrom(HttpClientModule)
 ]
-
 };
