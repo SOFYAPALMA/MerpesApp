@@ -43,16 +43,6 @@
 
                   <div class="col-12 mb-2">
                     <mat-form-field class="example-full-width" appearance="outline">
-                      <mat-label>Categoria Producto</mat-label>
-                      <input matInput formControlName="categoria" />
-                      <mat-icon class="material-icons-outlined p-3" matSuffix>box</mat-icon>
-                      <mat-error *ngIf="f['categoria']?.hasError('required')">campo requerido</mat-error>
-                      <mat-error *ngIf="f['categoria']?.hasError('categoria')">campo no válido</mat-error>
-                    </mat-form-field>
-                  </div>
-
-                  <div class="col-12 mb-2">
-                    <mat-form-field class="example-full-width" appearance="outline">
                       <mat-label>Cantidad</mat-label>
                       <input matInput formControlName="cantidad" />
                       <mat-icon class="material-icons-outlined p-3" matSuffix>box</mat-icon>
@@ -60,6 +50,19 @@
                       <mat-error *ngIf="f['cantidad']?.hasError('cantidad')">campo no válido</mat-error>
                     </mat-form-field>
                   </div>
+
+                  <div class="col-12 mb-2">
+                    <mat-form-field class="example-full-width">
+                      <mat-label>Categoria</mat-label>
+                      <mat-select formControlName="idcategoria" name="idcategoria">
+                        @for (cat of this.categorias; track cat) {
+                        <mat-option [value]="cat.id">
+                          {{ cat.nombreCategoria }}
+                        </mat-option>                        
+                        }
+                      </mat-select>
+                    </mat-form-field>
+                  </div>                  
                 </div>
     
                 <!-- Mostrar mensaje de error -->

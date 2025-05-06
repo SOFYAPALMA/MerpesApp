@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+  ViewChild,
+  AfterViewInit,
+} from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
@@ -13,45 +20,44 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ProductosService } from '../../Services/productos.service';
 import { Producto } from '../../Models/Productos';
 import { RespuestaAPI } from '../../Models/RespuestaAPI';
+import { query } from '@angular/animations';
 
 @Component({
   selector: 'app-productos',
   standalone: true,
-  imports: [MatCardModule,
+  imports: [
+    MatCardModule,
     MatPaginatorModule,
     MatTableModule,
     MatButtonModule,
     MatSortModule,
     MatIconModule,
     MatSnackBarModule,
-    MatDialogModule],
+    MatDialogModule,
+  ],
   templateUrl: './productos.component.html',
-  styleUrl: './productos.component.css'
+  styleUrl: './productos.component.css',
 })
 export class ProductosComponent implements OnInit, AfterViewInit {
- 
   private productosServicio = inject(ProductosService);
-  public listaProductos: MatTableDataSource<Producto> = new MatTableDataSource<Producto>();
-  public displayedColumns: string[] = [ 
+  public listaProductos: MatTableDataSource<Producto> =
+    new MatTableDataSource<Producto>();
+  public displayedColumns: string[] = [
     'nombre',
     'descripcion',
     'precio',
-    'categoria',
+    'idcategoria',
     'cantidad',
-    'accion'
+    'accion',
   ];
 
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
   @ViewChild(MatSort) sort: MatSort | undefined;
+  producto: any;
 
-  constructor(
-    private router: Router,
-    private dialog: MatDialog,
-    
-  ) { }
+  constructor(private router: Router, private dialog: MatDialog) {}
 
-
-  ngOnInit(){
+  ngOnInit() {
     this.obtenerProductos();
   }
 
@@ -63,7 +69,7 @@ export class ProductosComponent implements OnInit, AfterViewInit {
       this.listaProductos.sort = this.sort;
     }
   }
-  
+
   obtenerProductos() {
     this.productosServicio.lista().subscribe({
       next: (respuesta) => {
@@ -74,34 +80,38 @@ export class ProductosComponent implements OnInit, AfterViewInit {
       },
       error: (err) => {
         console.error('Error al obtener productos:', err);
-      }
+      },
     });
   }
 
-  ver(name: string) {
+  ver(obj: Producto) {
     console.log('id');
-    this.router.navigate(['editar-productos'], { queryParams: {id: name} });
+    this.router.navigate(['editar-productos'], { queryParams: { id: obj } });
   }
   nuevo() {
     this.router.navigate(['/nuevo']);
   }
 
-  eliminar(objeto: Producto){
-    if(confirm(`¿Desea eliminar el producto ${objeto.nombre}?`)){
-      this.productosServicio.eliminar(objeto.id).subscribe({
+  eliminar(id: string) {
+    console.log('id');
+    console.log('LLAMAREDITAR');
+    if (confirm(`¿Desea eliminar el producto?`)) {
+      this.productosServicio.eliminar(id).subscribe({
         next: (respuesta: RespuestaAPI) => {
           console.log(respuesta);
-          if (respuesta.success) { 
-            this.obtenerProductos(); 
-          }else{
-            alert(respuesta.message || "No se pudo eliminar el producto");
+          if (respuesta.success) {
+            this.obtenerProductos();
+          } else {
+            alert(respuesta.message || 'No se pudo eliminar el producto');
           }
         },
         error: (err) => {
           console.error(err);
-                alert("Error en la solicitud: " + (err.error?.message || err.message));
-        }
-      })
+          alert(
+            'Error en la solicitud: ' + (err.error?.message || err.message)
+          );
+        },
+      });
     }
   }
 }

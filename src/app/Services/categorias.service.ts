@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { appsettings } from '../Settings/appsettings';
 import { RespuestaAPI } from '../Models/RespuestaAPI';
+import { Categorias } from '../Models/Categorias';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,9 @@ export class CategoriasService {
   }
   // metodo para la consulta por id de categoria
 
-  obtener(id: number) {
-    return this.http.get<RespuestaAPI>(`${this.apiUrl}/${id}`);
+  obtener() {
+    console.log('S2',this.apiUrl + 'ConsultarCategorias');
+    return this.http.get<Categorias>(this.apiUrl + 'ConsultarCategorias');
   }
+
 }

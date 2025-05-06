@@ -21,9 +21,10 @@ export class ProductosService {
   }
 
    //metodo para la consulta por id de producto
-   obtener(id: number): Observable<Producto> {
-    return this.http.get<Producto>(
-      `${this.apiUrl}ConsultarProducto/${id}`
+   obtener(id: string): Observable<RespuestaAPI> {
+    console.log('gg', id);
+    return this.http.get<RespuestaAPI>(
+      this.apiUrl + "ConsultarProductoId?id=" + id
     ).pipe(
       catchError(error => {
         console.error('Error al obtener producto:', error);
@@ -49,16 +50,16 @@ export class ProductosService {
     );
   }
     //metodo tipo put para editar producto
-    editar(objeto: Producto): Observable<RespuestaAPI> {
+    editarProducto(objeto: Producto): Observable<RespuestaAPI> {
       return this.http.put<RespuestaAPI>(
-        `${this.apiUrl}ActualizarProducto/${objeto.id}`,
+        `${this.apiUrl}ActualizarProducto`,
         objeto
       );
     }
   
     //metodo para la eliminar por id de producto
-    eliminar(id: number): Observable<RespuestaAPI> {
-      return this.http.delete<RespuestaAPI>(`${this.apiUrl}Eliminar/${id}`).pipe(
+    eliminar(id: string): Observable<RespuestaAPI> {
+      return this.http.delete<RespuestaAPI>(`${this.apiUrl}EliminarProducto?id=${id}`).pipe(
         catchError(error => {
           console.error('Error al eliminar producto:', error);
           return throwError(() => error);

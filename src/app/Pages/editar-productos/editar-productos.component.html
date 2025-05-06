@@ -1,116 +1,150 @@
 <div class="auth-container">
-    <div
-      class="row auth-main justify-content-center align-items-center"
-      style="min-height: 100vh"
-    >
-      <div class="col-sm-6 col-md-4">
-        <mat-card class="auth-card">
-          <div class="auth-wrapper">
-            <h2 class="welcome-msg text-center">
-                {{ form.value.id ? 'Editar Producto' : 'Nuevo Producto' }}
-            </h2>
-  
-            <!-- Solo mostrar el formulario si authForm está inicializado -->
-            <form *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">
-              <div class="row">
-                <!-- Nombre -->
+  <div
+    class="row auth-main justify-content-center align-items-center"
+    style="min-height: 100vh"
+  >
+    <div class="col-sm-6 col-md-4">
+      <mat-card class="auth-card">
+        <div class="auth-wrapper">
+          <h2 class="welcome-msg text-center">Editar / Actualizar producto</h2>
 
-                <div class="col-12 mb-2">
-                    <mat-form-field class="example-full-width" appearance="outline">
-                      <mat-label>id de Producto</mat-label>
-                      <input matInput formControlName="id" />
-                      <mat-error *ngIf="f['id'].invalid">
-                        {{ f['id'].hasError('required') ? 'Campo requerido' : 'id no válido' }}
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
+          <!-- Solo mostrar el formulario si authForm está inicializado -->
+          <form
+            *ngIf="Editarform"
+            [formGroup]="Editarform"
+            (ngSubmit)="onSubmit()"
+          >
+            <div class="row">
+              <!-- Nombre -->
 
-                <div class="col-12 mb-2">
-                  <mat-form-field class="example-full-width" appearance="outline">
-                    <mat-label>Nombre de Producto</mat-label>
-                    <input matInput formControlName="nombre" />
-                    <mat-error *ngIf="f['nombre'].invalid">
-                      {{ f['nombre'].hasError('required') ? 'Campo requerido' : 'Nombre no válido' }}
-                    </mat-error>
-                  </mat-form-field>
-                </div>
-  
-                <!-- Descripción -->
-                <div class="col-12 mb-2">
-                  <mat-form-field class="example-full-width" appearance="outline">
-                    <mat-label>Descripción</mat-label>
-                    <textarea matInput formControlName="descripcion" rows="2"></textarea>
-                    <mat-error *ngIf="f['descripcion'].invalid">
-                      {{ f['descripcion'].hasError('required') ? 'Campo requerido' : 'Descripción no válida' }}
-                    </mat-error>
-                  </mat-form-field>
-                </div>
-  
-                <!-- Precio -->
-                <div class="col-12 mb-2">
-                  <mat-form-field class="example-full-width" appearance="outline">
-                    <mat-label>Precio</mat-label>
-                    <input matInput type="number" formControlName="precio" min="0" step="0.01"/>
-                    <mat-error *ngIf="f['precio'].invalid">
-                      {{ f['precio'].hasError('required') ? 'Campo requerido' : 'Precio debe ser mayor a 0' }}
-                    </mat-error>
-                  </mat-form-field>
-                </div>
-  
-                <!-- Categoría -->
-                <div class="col-12 mb-2">
-                  <mat-form-field class="example-full-width" appearance="outline">
-                    <mat-label>Categoría</mat-label>
-                    <input matInput formControlName="categoria" />
-                    <mat-error *ngIf="f['categoria'].invalid">
-                      {{ f['categoria'].hasError('required') ? 'Campo requerido' : 'Categoría no válida' }}
-                    </mat-error>
-                  </mat-form-field>
-                </div>
-  
-                <!-- Cantidad -->
-                <div class="col-12 mb-2">
-                  <mat-form-field class="example-full-width" appearance="outline">
-                    <mat-label>Cantidad</mat-label>
-                    <input matInput type="number" formControlName="cantidad" min="0"/>
-                    <mat-error *ngIf="f['cantidad'].invalid">
-                      {{ f['cantidad'].hasError('required') ? 'Campo requerido' : 'Cantidad debe ser mayor a 0' }}
-                    </mat-error>
-                  </mat-form-field>
-                </div>
+              <div class="col-12 mb-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>id de Producto</mat-label>
+                  <input matInput formControlName="id" />
+                </mat-form-field>
+              </div>
 
-                <div class="col-12 mb-2">
-                    <mat-form-field class="example-full-width" appearance="outline">
-                      <mat-label>idcategoria</mat-label>
-                      <input matInput type="number" formControlName="idcategoria" min="0"/>
-                      <mat-error *ngIf="f['idcategoria'].invalid">
-                        {{ f['idcategoria'].hasError('required') ? 'Campo requerido' : 'Cantidad debe ser mayor a 0' }}
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
+              <div class="col-12 mb-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Nombre de Producto</mat-label>
+                  <input matInput formControlName="nombre" />
+                  <mat-error *ngIf="f['nombre'].invalid">
+                    {{
+                      f["nombre"].hasError("required")
+                        ? "Campo requerido"
+                        : "Nombre no válido"
+                    }}
+                  </mat-error>
+                </mat-form-field>
               </div>
-  
-              <!-- Mensaje de error -->
-              <div *ngIf="error" class="alert alert-danger mt-3 mb-0">
-                {{ error }}
+
+              <!-- Descripción -->
+              <div class="col-12 mb-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Descripción</mat-label>
+                  <textarea
+                    matInput
+                    formControlName="descripcion"
+                    rows="2"
+                  ></textarea>
+                  <mat-error *ngIf="f['descripcion'].invalid">
+                    {{
+                      f["descripcion"].hasError("required")
+                        ? "Campo requerido"
+                        : "Descripción no válida"
+                    }}
+                  </mat-error>
+                </mat-form-field>
               </div>
-  
-              <!-- Botones -->
-              <div class="container-auth-form-btn">
-                <div style="text-align:center">
-                  <button mat-raised-button color="primary" type="submit" [disabled]="loading">
-                    <span *ngIf="loading">Procesando...</span>
-                    <span *ngIf="!loading">{{ form.value.id ? 'Actualizar' : 'Guardar' }}</span>
-                  </button>
-                  <button mat-button color="warn" type="button" (click)="router.navigate(['/productos'])">
-                    Cancelar
-                  </button>
-                </div>
+
+              <!-- Precio -->
+              <div class="col-12 mb-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Precio</mat-label>
+                  <input
+                    matInput
+                    type="number"
+                    formControlName="precio"
+                    min="0"
+                    step="0.01"
+                  />
+                  <mat-error *ngIf="f['precio'].invalid">
+                    {{
+                      f["precio"].hasError("required")
+                        ? "Campo requerido"
+                        : "Precio debe ser mayor a 0"
+                    }}
+                  </mat-error>
+                </mat-form-field>
               </div>
-            </form>
-          </div>  
-        </mat-card>
-      </div>
+
+              <!-- Cantidad -->
+              <div class="col-12 mb-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Cantidad</mat-label>
+                  <input
+                    matInput
+                    type="number"
+                    formControlName="cantidad"
+                    min="0"
+                  />
+                  <mat-error *ngIf="f['cantidad'].invalid">
+                    {{
+                      f["cantidad"].hasError("required")
+                        ? "Campo requerido"
+                        : "Cantidad debe ser mayor a 0"
+                    }}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="col-12 mb-2">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Categoria</mat-label>
+                  <mat-select formControlName="idcategoria" name="idcategoria">
+                    @for (cat of this.categorias; track cat) {
+                    <mat-option [value]="cat.id">
+                      {{ cat.nombreCategoria }}
+                    </mat-option>
+                    }
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              
+            </div>
+
+            <!-- Mensaje de error -->
+            <div *ngIf="error" class="alert alert-danger mt-3 mb-0">
+              {{ error }}
+            </div>
+
+            <!-- Botones -->
+            <div class="container-auth-form-btn">
+              <div style="text-align: center">
+                <button
+                  mat-raised-button
+                  color="primary"
+                  type="submit"
+                  [disabled]="loading"
+                >
+                  <span *ngIf="loading">Procesando...</span>
+                  <span *ngIf="!loading">{{
+                    Editarform.value.id ? "Actualizar" : "Guardar"
+                  }}</span>
+                </button>
+                <button
+                  mat-button
+                  color="warn"
+                  type="button"
+                  (click)="router.navigate(['/productos'])"
+                >
+                  Cancelar
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </mat-card>
     </div>
   </div>
-  
+</div>
